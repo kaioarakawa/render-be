@@ -1,0 +1,85 @@
+### Arquivo de testes rápidos (IntelliJ HTTP Client / VS Code REST Client)
+### Troque @host pela URL do Render para testar produção.
+
+@host = http://localhost:8080
+# @host = https://senac-api.onrender.com
+
+### Status da aplicação
+GET {{host}}/
+
+### Health check (usado pelo Render)
+GET {{host}}/actuator/health
+
+### Listar cursos
+GET {{host}}/api/cursos
+
+### Filtrar cursos por nome
+GET {{host}}/api/cursos?nome=java
+
+### Buscar curso por id
+GET {{host}}/api/cursos/1
+
+### Criar curso
+POST {{host}}/api/cursos
+Content-Type: application/json
+
+{
+  "nome": "Docker na prática",
+  "descricao": "Containers do zero ao deploy",
+  "cargaHoraria": 40
+}
+
+### Atualizar curso
+PUT {{host}}/api/cursos/1
+Content-Type: application/json
+
+{
+  "nome": "Técnico em Informática - Noturno",
+  "descricao": "Turma noturna",
+  "cargaHoraria": 1200,
+  "ativo": true
+}
+
+### Deletar curso
+DELETE {{host}}/api/cursos/4
+
+### Erro de validação (400)
+POST {{host}}/api/cursos
+Content-Type: application/json
+
+{
+  "nome": "",
+  "cargaHoraria": 0
+}
+
+### Curso inexistente (404)
+GET {{host}}/api/cursos/9999
+
+### Listar alunos
+GET {{host}}/api/alunos
+
+### Listar alunos de um curso
+GET {{host}}/api/alunos?cursoId=2
+
+### Matricular aluno
+POST {{host}}/api/alunos
+Content-Type: application/json
+
+{
+  "nome": "Ana Souza",
+  "email": "ana.souza@exemplo.com",
+  "cursoId": 2
+}
+
+### E-mail duplicado (409)
+POST {{host}}/api/alunos
+Content-Type: application/json
+
+{
+  "nome": "Outra Ana",
+  "email": "ana.souza@exemplo.com",
+  "cursoId": 2
+}
+
+### Remover aluno
+DELETE {{host}}/api/alunos/1
