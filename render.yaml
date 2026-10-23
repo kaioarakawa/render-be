@@ -16,7 +16,9 @@ services:
     region: oregon
     dockerfilePath: ./Dockerfile
     healthCheckPath: /actuator/health
-    autoDeploy: true
+    # Deploy e disparado pelo GitHub Actions (.github/workflows/deploy.yml)
+    # apenas depois que build e testes passam.
+    autoDeploy: false
     envVars:
       - key: PGHOST
         fromDatabase:
